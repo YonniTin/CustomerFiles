@@ -1,0 +1,48 @@
+S4D  XCV002484 	sap123
+SDF	XCV002484	sap123
+
+
+https://door.xincheng.com/sys/portal/page.jsp
+v_dingyongxian
+Xc@2018
+
+v_dingyongxian
+@V3RsBhiVrb6
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ZSMM_007/index.html?sap-client=300&spnego=disabled&sap-language=1&#/todo/005056AD734A1FE0BF824D046CE6B623/MM_XMQR/E040203
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ZSMM_007/index.html?sap-client=300&spnego=disabled&sap-language=1&#/todo/005056AD734A1FE0BF824D046CE6B623/MM_QYFH/E040203
+
+OGUID 005056AD734A1FE0BF824D046CE6B623
+FGUID 005056AD734A1FD1B6867F86C41CFE81
+
+005056AD734A1FD1B686239538851E75
+
+
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ZSMM_007/index.html?sap-client=300&spnego=disabled&sap-language=1&#/todo/005056904C0E1EECB5D148893BF6E95E/MM_XMQR/E040203
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ZSMM_007/index.html?sap-client=300&spnego=disabled&sap-language=1&#/todo/005056904C0E1EECB5D148893BF6E95E/MM_QYFH/E040203
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ZSMM_007/index.html?sap-client=300&spnego=disabled&sap-language=1&#/todo/005056AD734A1FD1878577E79BC1F453/MM_XMQR/E040203
+
+https://oasis-s4-dev.seazengroup.com.cn:44300/portal/index.html?sap-client=300&sap-language=ZH
+https://oasis-wd-dev.xincheng.com:44301/portal/index.html?sap-client=300&sap-language=ZH
+
+https://oasis-wd-dev.xincheng.com:44301/sap/bc/ui5_ui5/sap/ymain_menu/index.html?sap-client=300&sap-language=ZH
+
+            CALL METHOD zfcl_bc_common=>set_formfield_attribute(
+              EXPORTING
+                iv_fieldname             = 'BLBI/BLJR/BLYZFJR/SPBL/SPJR/SPYZFJR'
+                iv_visibility            = ' '
+                it_formfield_description = mt_field_description
+              CHANGING
+                ct_field_usage           = ct_field_usage
+                cs_data                  = cs_data
+            ).
+
+            READ TABLE ct_action_usage ASSIGNING FIELD-SYMBOL(<lfs_action_usage>) WITH KEY id = 'DIS_YJ'.
+            IF sy-subrc EQ 0.
+              <lfs_action_usage>-visible = '01'.
+              ev_action_usage_changed = abap_true.
+            ENDIF.

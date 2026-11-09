@@ -1,0 +1,11 @@
+Description=S4D
+Type=HTTPS
+TrustAll=true
+Authentication=NoAuthentication
+Name=S4D
+ProxyType=Internet
+URL=https://10.50.8.9:44300
+WebIDEUsage=odata_abap, odata_gen, ui5_execute_abap, dev_abap, bsp_execute_abap, odata_xs
+WebIDESystem=S4D
+WebIDEEnabled=true
+sap-client=300
