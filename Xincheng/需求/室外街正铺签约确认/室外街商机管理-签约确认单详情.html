@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size:12px">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>签约确认单详情（编辑） — 室外街商机管理</title>
+<!-- 绿洲 SAP UI 基线 seazen-sap-ui 0.9.1-review：tokens.css + controls.css 已内联，本文件可单独拷出打开 -->
+<style>
+/* 绿洲 SAPUI5 · v0.9.1 评审稿。颜色/间距基线来自 S1，字号及关联尺寸按 U1 12px 下限适配；命名为本交付新增映射。 */
+:root {
+  --sz-brand: #427ec0;
+  --sz-brand-weak: #f0f6ff;
+  --sz-info-bg: #f5faff;
+  --sz-text: #32363a;
+  --sz-label: #333333;
+  --sz-secondary: #777777;
+  --sz-status: #6a6d70;
+  --sz-required: #ce3b3b;
+  --sz-warning: #e9730c;
+  --sz-error: #bb0000;
+  --sz-input-border: #89919a;
+  --sz-toolbar-line: #d9d9d9;
+  --sz-line: #e5e5e5;
+  --sz-table-header: #f2f2f2;
+  --sz-zebra: #fafafa;
+  --sz-readonly: rgba(242,242,242,.5);
+  --sz-page: #f7f7f7;
+  --sz-surface: #ffffff;
+  --sz-font: "72", "72full", Arial, Helvetica, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sz-font-min: 12px;
+  --sz-font-body: 12px;
+  --sz-font-title: 14px;
+  --sz-font-root: 12px;
+  --sz-line-body: 18px;
+  --sz-line-label: 18px;
+  --sz-space-xs: 3px;
+  --sz-space-s: 6px;
+  --sz-space-m: 12px;
+  --sz-space-l: 24px;
+  --sz-space-xl: 36px;
+  --sz-radius-button: 3px;
+  --sz-radius-token: 3px;
+  --sz-control-height: 24px;
+  --sz-control-slot: 30px;
+  --sz-token-height: 18px;
+  --sz-toolbar-height: 36px;
+  --sz-table-header-height: 33px;
+  --sz-table-row-height: 30px;
+  --sz-page-header-height: 42px;
+  --sz-tab-height: 36px;
+  --sz-section-title-height: 36px;
+  --sz-filter-title-height: 42px;
+  --sz-filter-item-height: 48px;
+  --sz-dialog-footer-height: 36px;
+}
+/* 可独立复用的 HTML 演示控件。不是 SAPUI5 runtime；生产项目请映射原生控件。 */
+.sz-scope { font:400 var(--sz-font-body)/var(--sz-line-body) var(--sz-font); color:var(--sz-text); background:var(--sz-surface); text-align:left; }
+.sz-scope *, .sz-modal * { box-sizing:border-box; }
+.sz-scope h1,.sz-scope h2,.sz-scope h3 { font:400 var(--sz-font-title)/1.5 var(--sz-font); margin:0; }
+.sz-scope button,.sz-scope input,.sz-scope select,.sz-scope textarea,.sz-modal button,.sz-modal input { font-family:var(--sz-font); }
+.sz-btn { display:inline-flex; align-items:center; justify-content:center; position:relative; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:.75px solid var(--sz-brand); border-radius:var(--sz-radius-button); color:var(--sz-brand); background:white; font-size:var(--sz-font-body); line-height:22px; white-space:nowrap; cursor:pointer; }
+.sz-btn + .sz-btn { margin-left:var(--sz-space-xs); }
+.sz-btn.transparent { border-color:transparent; background:transparent; }
+.sz-btn.transparent:hover:not(:disabled) { background:var(--sz-brand-weak); }
+.sz-btn.primary { background:var(--sz-brand); color:white; font-weight:700; }
+.sz-btn.ghost { background:transparent; }
+.sz-btn:not(.transparent):active:not(:disabled) { background:var(--sz-brand); color:white; }
+.sz-btn:disabled { opacity:.5; cursor:not-allowed; }
+.sz-btn[hidden] { display:none; }
+.sz-btn.icon { min-width:30px; padding:0 3px; }
+.sz-icon { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.5; vertical-align:middle; }
+.sz-input,.sz-select { width:100%; min-width:0; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:1px solid var(--sz-input-border); border-radius:0; color:var(--sz-text); background:var(--sz-surface); font-size:var(--sz-font-body); line-height:18px; }
+.sz-input::placeholder { color:var(--sz-secondary); }
+.sz-input:hover:not(:disabled),.sz-select:hover:not(:disabled),.sz-input:focus,.sz-select:focus { border-color:var(--sz-brand); }
+.sz-input[readonly],.sz-select:disabled { background:var(--sz-readonly); }
+.sz-input:disabled { opacity:.5; cursor:not-allowed; }
+.sz-input.number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-field { min-width:0; }
+.sz-field>label { display:block; line-height:18px; color:var(--sz-label); }
+.sz-required { color:var(--sz-required); font-size:12px; font-weight:700; margin-right:3px; }
+.sz-with-icon { display:flex; align-items:center; position:relative; }
+.sz-with-icon .sz-input { padding-right:24px; }
+.sz-with-icon>button { position:absolute; right:1px; width:22px; height:22px; border:0; color:var(--sz-brand); background:transparent; padding:0; cursor:pointer; }
+.sz-textarea { width:100%; border:1px solid var(--sz-input-border); border-radius:0; padding:6px; resize:vertical; font-size:12px; color:var(--sz-text); }
+.sz-check,.sz-radio { accent-color:var(--sz-brand); vertical-align:middle; margin:0 3px 0 0; }
+.sz-choice { display:inline-flex; align-items:center; margin-right:12px; }
+.sz-multi { display:flex; align-items:center; gap:3px; min-height:var(--sz-control-height); border:1px solid var(--sz-input-border); padding:1px 3px; margin:3px 0; }
+.sz-token { display:inline-flex; align-items:center; height:var(--sz-token-height); padding:0 3px; border:1px solid var(--sz-brand); border-radius:3px; color:var(--sz-brand); background:var(--sz-zebra); font-size:12px; white-space:nowrap; }
+.sz-token button { font-size:12px; color:inherit; background:none; border:0; padding:0 0 0 3px; line-height:12px; cursor:pointer; }
+.sz-toolbar { display:flex; align-items:center; gap:3px; min-height:var(--sz-toolbar-height); padding:0 6px; border-bottom:1px solid var(--sz-toolbar-line); background:white; }
+.sz-toolbar h3 { margin-right:auto; white-space:nowrap; }
+.sz-toolbar-actions { display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+.sz-table-scroll { width:100%; overflow:auto; max-height:300px; position:relative; }
+.sz-table { width:100%; min-width:650px; border-collapse:separate; border-spacing:0; table-layout:fixed; color:var(--sz-text); font-size:12px; }
+.sz-table th { position:sticky; top:0; z-index:1; height:var(--sz-table-header-height); padding:0 6px; background:var(--sz-table-header); border:solid var(--sz-line); border-width:0 1px 1px 0; font-weight:400; text-align:center; white-space:normal; }
+.sz-table td { height:var(--sz-table-row-height); padding:0 6px; border:solid var(--sz-line); border-width:0 1px 1px 0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.sz-table tbody tr:nth-child(even) { background:var(--sz-zebra); }
+.sz-table tr.selected { background:var(--sz-brand-weak)!important; }
+.sz-table .center { text-align:center; }
+.sz-table .number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-table .long { text-align:left; }
+.sz-table.responsive td,.sz-table.responsive th { border-right:0; }
+.sz-status { color:var(--sz-status); white-space:nowrap; }
+.sz-status.approved { color:var(--sz-brand); }
+.sz-status.error { color:var(--sz-error); }
+.sz-filter { background:white; padding-bottom:24px; }
+.sz-filter-title { min-height:var(--sz-filter-title-height); padding:6px; display:flex; align-items:center; color:var(--sz-brand); }
+.sz-filter-title button { border:0; background:none; color:inherit; cursor:pointer; font-size:14px; padding:0; }
+.sz-filter-fields { padding:0 36px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0 12px; }
+.sz-filter-fields>.sz-field { min-height:var(--sz-filter-item-height); }
+.sz-filter-actions { display:flex; justify-content:flex-end; align-items:center; padding:0 36px; gap:3px; }
+.sz-filter.collapsed .sz-filter-fields,.sz-filter.collapsed .sz-filter-actions { display:none; }
+.sz-page-gap { height:12px; background:var(--sz-page); }
+.sz-page-header { height:var(--sz-page-header-height); display:flex; align-items:center; padding:0 6px; background:white; }
+.sz-page-header h3 { margin-right:auto; }
+.sz-section { background:white; margin-bottom:24px; }
+.sz-section-title { min-height:var(--sz-section-title-height); padding:0 36px; display:flex; align-items:center; }
+.sz-section-title span { border-bottom:2px solid var(--sz-brand); padding-bottom:6px; color:var(--sz-brand); }
+.sz-form { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 24px; padding:12px 24px; }
+.sz-form>.sz-field { display:grid; grid-template-columns:4fr 8fr; align-items:center; gap:3px; }
+.sz-form>.sz-field>label { text-align:right; }
+.sz-form>.sz-field.full { grid-column:1/-1; grid-template-columns:1fr 8fr; }
+.sz-tabs { display:flex; height:var(--sz-tab-height); border-bottom:1px solid var(--sz-line); background:white; }
+.sz-tab { border:0; border-bottom:2px solid transparent; background:transparent; color:var(--sz-text); padding:0 12px; font-size:14px; cursor:pointer; }
+.sz-tab[aria-selected=true] { color:var(--sz-brand); border-bottom-color:var(--sz-brand); }
+.sz-message { display:flex; align-items:flex-start; gap:6px; padding:6px 12px; color:var(--sz-brand); background:var(--sz-info-bg); border:1px solid var(--sz-brand); }
+.sz-empty { min-height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--sz-secondary); gap:6px; }
+.sz-empty svg { width:30px; height:30px; color:#89919a; }
+.sz-error-field { border-color:var(--sz-error); }
+.sz-field-error { color:var(--sz-error); font-size:12px; grid-column:2; }
+/* 下列为可访问性/加载/校验补充方案，原文未给精确值，详见待确认清单。 */
+.sz-scope :focus-visible,.sz-modal :focus-visible { outline:2px solid var(--sz-brand); outline-offset:2px; }
+.sz-busy { position:relative; pointer-events:none; }
+.sz-busy:after { content:"处理中…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.84); color:var(--sz-brand); z-index:4; }
+.sz-skeleton { display:grid; gap:6px; padding:12px; }
+.sz-skeleton span { height:12px; background:var(--sz-table-header); animation:sz-pulse 1.2s ease-in-out infinite alternate; }
+@keyframes sz-pulse { to { opacity:.4; } }
+.sz-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.36); display:grid; place-items:center; z-index:100; padding:24px; }
+.sz-modal { background:white; width:80%; max-height:85vh; overflow:auto; border:1px solid var(--sz-line); font:400 12px/18px var(--sz-font); color:var(--sz-text); }
+.sz-modal.small { width:36%; min-width:280px; max-width:560px; }
+.sz-modal-header { min-height:36px; padding:6px 24px; position:relative; text-align:center; font-size:14px; }
+.sz-modal-header>button { position:absolute; right:6px; top:6px; background:none; border:0; color:var(--sz-secondary); cursor:pointer; }
+.sz-modal-body { padding:12px 24px; }
+.sz-modal-footer { height:var(--sz-dialog-footer-height); display:flex; align-items:center; justify-content:flex-end; padding:0 6px; border-top:1px solid var(--sz-line); }
+.sz-modal.error { border-top:3px solid var(--sz-error); }
+@media(prefers-reduced-motion:reduce) { .sz-skeleton span { animation:none; } }
+</style>
+<style>
+  body { min-width: 1024px; margin: 0; background: var(--sz-page); }
+  .z-appbar { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; background: var(--sz-surface); border-bottom: 1px solid var(--sz-toolbar-line); color: var(--sz-secondary); }
+  .z-appbar .z-brand { color: var(--sz-text); font-size: var(--sz-font-title); }
+  .z-appbar .z-user { margin-left: auto; }
+  .z-page { padding: 0 24px 24px; }
+  .z-pagehead { height: var(--sz-page-header-height); display: flex; align-items: center; margin: 0 -24px 12px; padding: 0 12px; background: var(--sz-surface); border-bottom: 1px solid var(--sz-line); }
+  .z-pagehead h2 { margin-right: auto; display: flex; align-items: center; gap: 12px; }
+  .z-pagehead .z-billno { color: var(--sz-secondary); font-size: 12px; }
+  .z-pagehead-actions { display: flex; align-items: center; gap: 3px; }
+  .z-date { position: relative; }
+  .z-date .sz-input { padding-right: 24px; }
+  .z-date .z-date-icon { position: absolute; right: 6px; top: 9px; color: var(--sz-brand); pointer-events: none; }
+  .z-range { display: flex; align-items: center; gap: 3px; }
+  .z-range .z-date { flex: 1 1 0; }
+  .sz-form > .sz-field.z-span2 { grid-column: span 2; grid-template-columns: 4fr 20fr; }
+  .z-field-note { color: var(--sz-secondary); font-size: 12px; line-height: 18px; }
+  .z-subtable { width: 100%; min-width: 720px; }
+  .z-subtable td, .z-subtable th { white-space: nowrap; }
+  .z-attach { border-top: 1px solid var(--sz-line); }
+  .z-attach:first-of-type { border-top: 0; }
+  .z-attach .sz-toolbar { border-bottom: 1px solid var(--sz-line); }
+  .z-attach .sz-toolbar h3 { display: flex; align-items: center; gap: 6px; }
+  .z-attach-count { color: var(--sz-secondary); font-size: 12px; }
+  .z-attach-table { min-width: 100%; }
+  .z-attach-table .sz-empty { min-height: 60px; }
+  .z-attach-table td.z-empty-cell { height: auto; padding: 12px; overflow: visible; white-space: normal; }
+  .z-attach-hint { color: var(--sz-secondary); font-size: 12px; }
+  .z-hint { color: var(--sz-secondary); font-size: 12px; }
+  .z-note { margin-top: 12px; color: var(--sz-secondary); font-size: 12px; }
+  .z-radio-row { cursor: pointer; }
+  .z-radio-row.selected { background: var(--sz-brand-weak); }
+  .z-modal-note { margin: 0 0 12px; padding: 6px 12px; color: var(--sz-brand); background: var(--sz-info-bg); border: 1px solid var(--sz-brand); }
+  .z-modal-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 12px; margin-bottom: 12px; }
+  .z-error-list { margin: 0; padding-left: 18px; }
+  .z-error-list li { margin-bottom: 6px; }
+  .z-modal-body p:last-child { margin-bottom: 0; }
+  .z-selected-count { color: var(--sz-brand); }
+  .sz-modal-backdrop[hidden] { display: none; }
+  .z-unit .sz-with-icon { width: 100%; }
+  .z-unit .sz-multi { flex: 1 1 auto; min-width: 0; min-height: var(--sz-control-height); margin: 0; padding: 1px 26px 1px 3px; flex-wrap: wrap; }
+  .z-unit #unitTokens:empty::before { content: "请选择铺位"; color: var(--sz-secondary); font-size: 12px; padding-left: 3px; }
+</style>
+</head>
+<body class="sz-scope">
+
+<div class="z-appbar">
+  <span class="z-brand">绿洲商管</span>
+  <span>/</span>
+  <span>室外街商机管理</span>
+  <span>/</span>
+  <span>签约确认单</span>
+  <span class="z-user">陈思远（上海虹桥项目）</span>
+</div>
+
+<main class="z-page">
+  <div class="z-pagehead">
+    <h2>
+      <span>签约确认单</span>
+      <span class="z-billno">单据编号：SW2026111100012</span>
+      <span class="sz-status">草稿</span>
+    </h2>
+    <div class="z-pagehead-actions">
+      <button type="button" class="sz-btn primary" id="saveBtn">保存</button>
+      <button type="button" class="sz-btn ghost" id="submitBtn">提交审批</button>
+      <button type="button" class="sz-btn transparent" id="backBtn">返回</button>
+    </div>
+  </div>
+
+  <section class="sz-section" aria-label="基本信息">
+    <div class="sz-section-title"><span>基本信息</span></div>
+    <div class="sz-form">
+      <div class="sz-field">
+        <label for="billNo">单据编号</label>
+        <input class="sz-input" id="billNo" value="SW2026111100012" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="billStatus">单据状态</label>
+        <input class="sz-input" id="billStatus" value="草稿" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="signDate"><span class="sz-required">*</span>签约时间</label>
+        <div class="z-date">
+          <input class="sz-input" id="signDate" value="2026/11/10" placeholder="yyyy/MM/dd">
+          <svg class="sz-icon z-date-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1"></rect><path d="M2 6h12M5 2v2M11 2v2"></path></svg>
+        </div>
+      </div>
+
+      <div class="sz-field">
+        <label for="oppOwner"><span class="sz-required">*</span>商机跟进人</label>
+        <div class="sz-with-icon">
+          <input class="sz-input" id="oppOwner" value="陈思远" readonly placeholder="请选择商机">
+          <button type="button" title="选择商机" aria-label="选择商机" onclick="openModal('oppModal')">
+            <svg class="sz-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5 14 14"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="oppOrg">人员组织</label>
+        <input class="sz-input" id="oppOrg" value="华东区域/上海虹桥项目" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="merchant"><span class="sz-required">*</span>签约商户名称</label>
+        <input class="sz-input" id="merchant" value="上海星巴克咖啡经营有限公司" placeholder="请输入签约商户名称">
+      </div>
+
+      <div class="sz-field">
+        <label for="brand"><span class="sz-required">*</span>品牌</label>
+        <input class="sz-input" id="brand" value="星巴克">
+      </div>
+      <div class="sz-field">
+        <label for="industry"><span class="sz-required">*</span>经营业态</label>
+        <select class="sz-select" id="industry">
+          <option selected>餐饮</option>
+          <option>零售</option>
+          <option>休闲娱乐</option>
+          <option>生活服务</option>
+          <option>教育培训</option>
+        </select>
+      </div>
+      <div class="sz-field">
+        <label for="rent"><span class="sz-required">*</span>租金（元/㎡/月）</label>
+        <input class="sz-input number" id="rent" value="320.00" inputmode="decimal">
+      </div>
+
+      <div class="sz-field">
+        <label for="leaseStart"><span class="sz-required">*</span>合同期</label>
+        <div class="z-range">
+          <div class="z-date">
+            <input class="sz-input" id="leaseStart" value="2026/12/01" placeholder="yyyy/MM/dd">
+            <svg class="sz-icon z-date-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1"></rect><path d="M2 6h12M5 2v2M11 2v2"></path></svg>
+          </div>
+          <span aria-hidden="true">~</span>
+          <div class="z-date">
+            <input class="sz-input" id="leaseEnd" value="2029/11/30" placeholder="yyyy/MM/dd">
+            <svg class="sz-icon z-date-icon" viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="3" width="12" height="11" rx="1"></rect><path d="M2 6h12M5 2v2M11 2v2"></path></svg>
+          </div>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="payMethod"><span class="sz-required">*</span>付款方式</label>
+        <select class="sz-select" id="payMethod">
+          <option>月度</option>
+          <option selected>季度</option>
+          <option>半年度</option>
+          <option>年度</option>
+          <option>其他</option>
+        </select>
+      </div>
+      <div class="sz-field">
+        <label for="freeDays"><span class="sz-required">*</span>免租期（天）</label>
+        <input class="sz-input number" id="freeDays" value="90" inputmode="numeric">
+      </div>
+
+      <div class="sz-field z-unit">
+        <label><span class="sz-required">*</span>铺位号</label>
+        <div class="sz-with-icon">
+          <div class="sz-multi" id="unitTokens"><span class="sz-token" data-unit="1F-108" data-area="86.40">1F-108<button type="button" aria-label="移除 1F-108" onclick="removeUnitToken(this)">×</button></span><span class="sz-token" data-unit="1F-109" data-area="72.00">1F-109<button type="button" aria-label="移除 1F-109" onclick="removeUnitToken(this)">×</button></span></div>
+          <button type="button" title="选择铺位" aria-label="选择铺位" onclick="openUnitModal()">
+            <svg class="sz-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5 14 14"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="areaTotal">面积（㎡）</label>
+        <input class="sz-input number" id="areaTotal" value="158.40" readonly>
+      </div>
+
+      <div class="sz-field full">
+        <label for="remark">备注说明</label>
+        <div>
+          <textarea class="sz-textarea" id="remark" rows="3" placeholder="选填，不超过 500 字"></textarea>
+          <div class="z-field-note">0 / 500</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sz-section" aria-label="附件信息">
+    <div class="sz-section-title"><span>附件信息</span></div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3><span class="sz-required">*</span>租赁合同<span class="z-attach-count" id="countLeasing">已上传 2 / 9</span></h3>
+        <div class="sz-toolbar-actions">
+          <span class="z-attach-hint">pdf / jpg / png，单个不超过 10MB</span>
+          <button type="button" class="sz-btn transparent" onclick="addFile('leasing')">上传文件</button>
+        </div>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="租赁合同附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:170px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody id="attLeasing">
+          <tr data-file><td class="long">星巴克上海虹桥店租赁合同.pdf</td><td class="number">2.4 MB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:32</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button><button type="button" class="sz-btn transparent" onclick="removeFile(this,'leasing')">删除</button></td></tr>
+          <tr data-file><td class="long">租赁合同补充协议.pdf</td><td class="number">860 KB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:35</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button><button type="button" class="sz-btn transparent" onclick="removeFile(this,'leasing')">删除</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3><span class="sz-required">*</span>身份证明材料<span class="z-attach-count" id="countIdentity">已上传 1 / 9</span></h3>
+        <div class="sz-toolbar-actions">
+          <span class="z-attach-hint">营业执照、身份证复印件等</span>
+          <button type="button" class="sz-btn transparent" onclick="addFile('identity')">上传文件</button>
+        </div>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="身份证明材料附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:170px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody id="attIdentity">
+          <tr data-file><td class="long">星巴克营业执照.pdf</td><td class="number">1.1 MB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:36</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button><button type="button" class="sz-btn transparent" onclick="removeFile(this,'identity')">删除</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3><span class="sz-required">*</span>首期租金及押金付款凭证<span class="z-attach-count" id="countPayment">已上传 0 / 9</span></h3>
+        <div class="sz-toolbar-actions">
+          <span class="z-attach-hint">pdf / jpg / png，单个不超过 10MB</span>
+          <button type="button" class="sz-btn transparent" onclick="addFile('payment')">上传文件</button>
+        </div>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="首期租金及押金付款凭证附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:170px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody id="attPayment">
+          <tr class="z-empty-row"><td colspan="5" class="z-empty-cell"><div class="sz-empty">暂无附件。三类附件均为必传，请先上传首期租金及押金付款凭证。</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="z-note">原型演示数据均为虚构，不代表真实单据、审批结果或商机数据。</p>
+</main>
+
+<!-- 商机选择 -->
+<div class="sz-modal-backdrop" id="oppModal" hidden>
+  <div class="sz-modal" role="dialog" aria-modal="true" aria-labelledby="oppTitle">
+    <div class="sz-modal-header"><span id="oppTitle">选择商机</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('oppModal')">✕</button>
+    </div>
+    <div class="sz-modal-body">
+      <p class="z-modal-note">仅显示：商机状态为跟进中 / 已停滞、当前阶段为初始接洽～意向确认、且未被其他签约确认单关联的商机。</p>
+      <div class="z-modal-filters">
+        <div class="sz-field"><label for="mOppNo">商机编号</label><input class="sz-input" id="mOppNo" placeholder="请输入"></div>
+        <div class="sz-field"><label for="mOppBrand">品牌</label><input class="sz-input" id="mOppBrand" placeholder="请输入"></div>
+        <div class="sz-field"><label for="mOppOwner">商机跟进人</label><input class="sz-input" id="mOppOwner" placeholder="请输入"></div>
+      </div>
+      <table class="sz-table z-subtable" aria-label="可选商机">
+        <colgroup><col style="width:44px"><col style="width:150px"><col style="width:110px"><col style="width:90px"><col style="width:180px"><col style="width:110px"><col style="width:100px"></colgroup>
+        <thead><tr><th>选择</th><th>商机编号</th><th>品牌</th><th>商机跟进人</th><th>人员组织</th><th>当前阶段</th><th>商机状态</th></tr></thead>
+        <tbody id="oppBody">
+          <tr class="z-radio-row selected" data-no="SJ202611010012" data-name="陈思远" data-org="华东区域/上海虹桥项目" data-brand="星巴克" data-industry="餐饮">
+            <td class="center"><input type="radio" class="sz-radio" name="oppPick" checked aria-label="选择 SJ202611010012"></td>
+            <td class="long">SJ202611010012</td><td class="long">星巴克</td><td class="center">陈思远</td>
+            <td class="long">华东区域/上海虹桥项目</td><td class="center">20 邀约看场</td><td class="center">20 跟进中</td>
+          </tr>
+          <tr class="z-radio-row" data-no="SJ202610220015" data-name="陈思远" data-org="华东区域/上海虹桥项目" data-brand="必胜客" data-industry="餐饮">
+            <td class="center"><input type="radio" class="sz-radio" name="oppPick" aria-label="选择 SJ202610220015"></td>
+            <td class="long">SJ202610220015</td><td class="long">必胜客</td><td class="center">陈思远</td>
+            <td class="long">华东区域/上海虹桥项目</td><td class="center">30 品牌回价</td><td class="center">20 跟进中</td>
+          </tr>
+          <tr class="z-radio-row" data-no="SJ202610180006" data-name="陈思远" data-org="华东区域/上海虹桥项目" data-brand="全家便利" data-industry="零售">
+            <td class="center"><input type="radio" class="sz-radio" name="oppPick" aria-label="选择 SJ202610180006"></td>
+            <td class="long">SJ202610180006</td><td class="long">全家便利</td><td class="center">陈思远</td>
+            <td class="long">华东区域/上海虹桥项目</td><td class="center">10 初始接洽</td><td class="center">30 已停滞</td>
+          </tr>
+          <tr class="z-radio-row" data-no="SJ202610100021" data-name="陈思远" data-org="华东区域/上海虹桥项目" data-brand="屈臣氏" data-industry="零售">
+            <td class="center"><input type="radio" class="sz-radio" name="oppPick" aria-label="选择 SJ202610100021"></td>
+            <td class="long">SJ202610100021</td><td class="long">屈臣氏</td><td class="center">陈思远</td>
+            <td class="long">华东区域/上海虹桥项目</td><td class="center">40 意向确认</td><td class="center">20 跟进中</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sz-modal-footer">
+      <button type="button" class="sz-btn ghost" onclick="closeModal('oppModal')">取消</button>
+      <button type="button" class="sz-btn primary" onclick="confirmOpp()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 铺位选择 -->
+<div class="sz-modal-backdrop" id="unitModal" hidden>
+  <div class="sz-modal" role="dialog" aria-modal="true" aria-labelledby="unitTitle">
+    <div class="sz-modal-header"><span id="unitTitle">选择铺位</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('unitModal')">✕</button>
+    </div>
+    <div class="sz-modal-body">
+      <p class="z-modal-note">仅显示上海虹桥项目的室外街正铺（铺位类型 C），审批通过、未删除 / 停用的有效铺位均可选，不要求空铺；无租赁面积的铺位不可选。</p>
+      <div class="z-modal-filters" style="grid-template-columns:repeat(2,minmax(0,1fr));">
+        <div class="sz-field"><label for="mUnitNo">铺位编号</label><input class="sz-input" id="mUnitNo" placeholder="请输入铺位编号"></div>
+        <div class="sz-field"><label for="mUnitProject">所属项目</label><input class="sz-input" id="mUnitProject" value="上海虹桥项目" readonly></div>
+      </div>
+      <table class="sz-table z-subtable" aria-label="可选铺位">
+        <colgroup><col style="width:44px"><col style="width:160px"><col style="width:130px"><col style="width:220px"><col style="width:130px"></colgroup>
+        <thead><tr><th>选择</th><th>铺位编号</th><th>铺位类型</th><th>所属项目</th><th>租赁面积（㎡）</th></tr></thead>
+        <tbody id="unitPickBody">
+          <tr data-unit="1F-108" data-area="86.40"><td class="center"><input type="checkbox" class="sz-check" checked aria-label="选择铺位 1F-108"></td><td class="long">1F-108</td><td class="center">室外街正铺</td><td class="long">上海虹桥项目</td><td class="number">86.40</td></tr>
+          <tr data-unit="1F-109" data-area="72.00"><td class="center"><input type="checkbox" class="sz-check" checked aria-label="选择铺位 1F-109"></td><td class="long">1F-109</td><td class="center">室外街正铺</td><td class="long">上海虹桥项目</td><td class="number">72.00</td></tr>
+          <tr data-unit="1F-110" data-area="54.00"><td class="center"><input type="checkbox" class="sz-check" aria-label="选择铺位 1F-110"></td><td class="long">1F-110</td><td class="center">室外街正铺</td><td class="long">上海虹桥项目</td><td class="number">54.00</td></tr>
+          <tr data-unit="1F-111" data-area="92.50"><td class="center"><input type="checkbox" class="sz-check" aria-label="选择铺位 1F-111"></td><td class="long">1F-111</td><td class="center">室外街正铺</td><td class="long">上海虹桥项目</td><td class="number">92.50</td></tr>
+          <tr data-unit="2F-201" data-area="120.00"><td class="center"><input type="checkbox" class="sz-check" aria-label="选择铺位 2F-201"></td><td class="long">2F-201</td><td class="center">室外街正铺</td><td class="long">上海虹桥项目</td><td class="number">120.00</td></tr>
+        </tbody>
+      </table>
+      <p class="z-attach-hint" style="margin:12px 0 0;">已选择 <span class="z-selected-count" id="unitPickCount">2</span> 个铺位，面积合计 <span class="z-selected-count" id="unitPickArea">158.40</span> ㎡。</p>
+    </div>
+    <div class="sz-modal-footer">
+      <button type="button" class="sz-btn ghost" onclick="closeModal('unitModal')">取消</button>
+      <button type="button" class="sz-btn primary" onclick="confirmUnits()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 保存成功 -->
+<div class="sz-modal-backdrop" id="successModal" hidden>
+  <div class="sz-modal small" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <div class="sz-modal-header"><span id="successTitle">保存成功</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('successModal')">✕</button>
+    </div>
+    <div class="sz-modal-body"><p id="successText">单据已保存，单据编号 SW2026111100012，单据状态：草稿。必填项与附件在提交审批时全量校验。</p></div>
+    <div class="sz-modal-footer"><button type="button" class="sz-btn primary" onclick="closeModal('successModal')">确定</button></div>
+  </div>
+</div>
+
+<!-- 提交校验失败 -->
+<div class="sz-modal-backdrop" id="errorModal" hidden>
+  <div class="sz-modal small error" role="dialog" aria-modal="true" aria-labelledby="errorTitle">
+    <div class="sz-modal-header"><span id="errorTitle">无法提交审批</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('errorModal')">✕</button>
+    </div>
+    <div class="sz-modal-body">
+      <p>以下内容未通过提交校验，请补充后重新提交：</p>
+      <ul class="z-error-list" id="errorList"></ul>
+    </div>
+    <div class="sz-modal-footer"><button type="button" class="sz-btn primary" onclick="closeModal('errorModal')">关闭</button></div>
+  </div>
+</div>
+
+<script>
+  function openModal(id) { document.getElementById(id).hidden = false; }
+  function closeModal(id) { document.getElementById(id).hidden = true; }
+
+  document.getElementById('backBtn').addEventListener('click', () => {
+    window.location.href = '室外街商机管理-签约确认单列表.html';
+  });
+
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    document.getElementById('successTitle').textContent = '保存成功';
+    document.getElementById('successText').textContent = '单据已保存，单据编号 SW2026111100012，单据状态：草稿。必填项与附件在提交审批时全量校验。';
+    openModal('successModal');
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const missing = [];
+    if (!document.getElementById('merchant').value.trim()) missing.push('签约商户名称：未填写');
+    if (!document.querySelectorAll('#unitTokens .sz-token').length) missing.push('铺位号：未选择');
+    if (fileCount('attLeasing') === 0) missing.push('租赁合同：未上传');
+    if (fileCount('attIdentity') === 0) missing.push('身份证明材料：未上传');
+    if (fileCount('attPayment') === 0) missing.push('首期租金及押金付款凭证：未上传');
+    if (missing.length === 0) {
+      document.getElementById('successTitle').textContent = '提交成功';
+      document.getElementById('successText').textContent = '已提交审批，单据状态更新为“审批中”，页面锁定，等待审批人处理。';
+      openModal('successModal');
+      return;
+    }
+    document.getElementById('errorList').innerHTML = missing.map(t => '<li>' + t + '</li>').join('') +
+      '<li>三类附件均为必传，每类独立计数、不可互相替代。</li>';
+    document.getElementById('errorTitle').textContent = '无法提交审批';
+    openModal('errorModal');
+  });
+
+  function showBlocked(title, items) {
+    document.getElementById('errorTitle').textContent = title;
+    document.getElementById('errorList').innerHTML = items.map(t => '<li>' + t + '</li>').join('');
+    openModal('errorModal');
+  }
+
+  function fileCount(id) {
+    return document.querySelectorAll('#' + id + ' tr[data-file]').length;
+  }
+
+  function refreshCount(key) {
+    const map = { leasing: ['attLeasing', 'countLeasing'], identity: ['attIdentity', 'countIdentity'], payment: ['attPayment', 'countPayment'] };
+    const [tbodyId, labelId] = map[key];
+    document.getElementById(labelId).textContent = '已上传 ' + fileCount(tbodyId) + ' / 9';
+  }
+
+  function addFile(key) {
+    const map = { leasing: ['attLeasing', '租赁合同'], identity: ['attIdentity', '身份证明材料'], payment: ['attPayment', '付款凭证'] };
+    const [tbodyId, name] = map[key];
+    const tbody = document.getElementById(tbodyId);
+    const empty = tbody.querySelector('.z-empty-row');
+    if (empty) empty.remove();
+    if (fileCount(tbodyId) >= 9) {
+      showBlocked('上传失败', ['每类附件最多 9 个，请先删除多余附件后再上传。']);
+      return;
+    }
+    const tr = document.createElement('tr');
+    tr.setAttribute('data-file', '');
+    tr.innerHTML = '<td class="long">' + name + '示例.pdf</td><td class="number">1.2 MB</td><td class="center">陈思远</td><td class="center">2026/11/12 10:20</td>' +
+      '<td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button>' +
+      '<button type="button" class="sz-btn transparent" onclick="removeFile(this,\'' + key + '\')">删除</button></td>';
+    tbody.appendChild(tr);
+    refreshCount(key);
+  }
+
+  function removeFile(btn, key) {
+    const tr = btn.closest('tr');
+    const tbody = tr.parentElement;
+    tr.remove();
+    if (fileCount(tbody.id) === 0) {
+      const empty = document.createElement('tr');
+      empty.className = 'z-empty-row';
+      const text = key === 'payment' ? '暂无附件。三类附件均为必传，请先上传首期租金及押金付款凭证。' : '暂无附件，请上传。';
+      empty.innerHTML = '<td colspan="5" class="z-empty-cell"><div class="sz-empty">' + text + '</div></td>';
+      tbody.appendChild(empty);
+    }
+    refreshCount(key);
+  }
+
+  // 商机选择
+  let currentOpp = 'SJ202611010012';
+  document.querySelectorAll('#oppBody .z-radio-row').forEach(row => {
+    row.addEventListener('click', () => {
+      document.querySelectorAll('#oppBody .z-radio-row').forEach(r => r.classList.remove('selected'));
+      row.classList.add('selected');
+      row.querySelector('input[type=radio]').checked = true;
+    });
+  });
+
+  function confirmOpp() {
+    const row = document.querySelector('#oppBody .z-radio-row.selected');
+    if (!row) { closeModal('oppModal'); return; }
+    document.getElementById('oppOwner').value = row.dataset.name;
+    document.getElementById('oppOrg').value = row.dataset.org;
+    if (row.dataset.no !== currentOpp) {
+      currentOpp = row.dataset.no;
+      document.getElementById('brand').value = row.dataset.brand;
+      document.getElementById('industry').value = row.dataset.industry;
+      document.getElementById('unitTokens').innerHTML = '';
+      recalcArea();
+    }
+    closeModal('oppModal');
+  }
+
+  // 铺位选择
+  function openUnitModal() {
+    const selected = new Set(Array.from(document.querySelectorAll('#unitTokens .sz-token')).map(t => t.dataset.unit));
+    document.querySelectorAll('#unitPickBody tr').forEach(tr => {
+      tr.querySelector('input[type=checkbox]').checked = selected.has(tr.dataset.unit);
+    });
+    updateUnitPick();
+    openModal('unitModal');
+  }
+
+  function updateUnitPick() {
+    let count = 0, area = 0;
+    document.querySelectorAll('#unitPickBody tr').forEach(tr => {
+      if (tr.querySelector('input[type=checkbox]').checked) { count++; area += Number(tr.dataset.area); }
+    });
+    document.getElementById('unitPickCount').textContent = String(count);
+    document.getElementById('unitPickArea').textContent = area.toFixed(2);
+  }
+  document.querySelectorAll('#unitPickBody input[type=checkbox]').forEach(cb => cb.addEventListener('change', updateUnitPick));
+
+  function confirmUnits() {
+    const picked = Array.from(document.querySelectorAll('#unitPickBody tr')).filter(tr => tr.querySelector('input[type=checkbox]').checked);
+    document.getElementById('unitTokens').innerHTML = picked.map(tr =>
+      '<span class="sz-token" data-unit="' + tr.dataset.unit + '" data-area="' + tr.dataset.area + '">' + tr.dataset.unit +
+      '<button type="button" aria-label="移除 ' + tr.dataset.unit + '" onclick="removeUnitToken(this)">×</button></span>'
+    ).join('');
+    recalcArea();
+    closeModal('unitModal');
+  }
+
+  function removeUnitToken(btn) {
+    btn.closest('.sz-token').remove();
+    recalcArea();
+  }
+
+  function recalcArea() {
+    let area = 0;
+    document.querySelectorAll('#unitTokens .sz-token').forEach(t => area += Number(t.dataset.area));
+    document.getElementById('areaTotal').value = area.toFixed(2);
+  }
+</script>
+</body>
+</html>

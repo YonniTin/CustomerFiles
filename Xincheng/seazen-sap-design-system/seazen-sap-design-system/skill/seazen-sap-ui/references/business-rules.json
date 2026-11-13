@@ -1,0 +1,83 @@
+{
+  "format": "seazen-action-policy/v1",
+  "version": "0.9.1-review",
+  "status": "review-draft",
+  "source": [
+    "S2 §2.3",
+    "S3 §3.4"
+  ],
+  "statusKeysAreDemoAliases": true,
+  "statuses": {
+    "unsubmitted": "未提交",
+    "approving": "审批中",
+    "returned": "审批退回",
+    "voided": "审批作废",
+    "rejected": "审批拒绝",
+    "approved": "已审批"
+  },
+  "visibility": {
+    "missingPermission": "hide",
+    "unmetPrecondition": "disabled-visible",
+    "showDisabledReason": true
+  },
+  "actions": {
+    "create": {
+      "allowedOrganizations": [
+        "project"
+      ],
+      "selection": "irrelevant",
+      "ruleId": "BIZ-01",
+      "pendingException": "D03：商机管理实页允许事业部/区域/项目，需功能级确认"
+    },
+    "edit": {
+      "allowedStatuses": [
+        "unsubmitted",
+        "returned",
+        "voided"
+      ],
+      "ruleId": "BIZ-02"
+    },
+    "delete": {
+      "allowedStatuses": [
+        "unsubmitted"
+      ],
+      "mode": "logical-delete-only",
+      "ruleId": "BIZ-03",
+      "detailRows": "deleted rows are committed with save",
+      "listCommitTiming": "pending-D09"
+    },
+    "view": {
+      "requiredPermission": true,
+      "ruleId": "BIZ-04"
+    },
+    "viewApproval": {
+      "allowedStatuses": [
+        "approving",
+        "returned",
+        "voided",
+        "rejected",
+        "approved"
+      ],
+      "ruleId": "BIZ-04"
+    },
+    "submit": {
+      "allowedStatuses": null,
+      "missingConfiguration": "disabled-visible",
+      "ruleId": "BIZ-06",
+      "decision": "pending-D02"
+    },
+    "export": {
+      "requiredPermission": true,
+      "sensitiveFields": "require-separate-policy",
+      "decision": "partially-proposed",
+      "ruleId": "BIZ-08"
+    }
+  },
+  "demoSafety": {
+    "singleRecordActionsOnly": true,
+    "multipleSelection": "disabled-visible",
+    "busy": "disable-all-actions",
+    "backendAuthorization": "required-in-production",
+    "note": "数量策略和服务端校验为补充示例，不是已批准接口合同。"
+  }
+}

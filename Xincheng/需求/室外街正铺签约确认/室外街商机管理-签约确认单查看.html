@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size:12px">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>签约确认单详情（查看） — 室外街商机管理</title>
+<!-- 绿洲 SAP UI 基线 seazen-sap-ui 0.9.1-review：tokens.css + controls.css 已内联，本文件可单独拷出打开 -->
+<style>
+/* 绿洲 SAPUI5 · v0.9.1 评审稿。颜色/间距基线来自 S1，字号及关联尺寸按 U1 12px 下限适配；命名为本交付新增映射。 */
+:root {
+  --sz-brand: #427ec0;
+  --sz-brand-weak: #f0f6ff;
+  --sz-info-bg: #f5faff;
+  --sz-text: #32363a;
+  --sz-label: #333333;
+  --sz-secondary: #777777;
+  --sz-status: #6a6d70;
+  --sz-required: #ce3b3b;
+  --sz-warning: #e9730c;
+  --sz-error: #bb0000;
+  --sz-input-border: #89919a;
+  --sz-toolbar-line: #d9d9d9;
+  --sz-line: #e5e5e5;
+  --sz-table-header: #f2f2f2;
+  --sz-zebra: #fafafa;
+  --sz-readonly: rgba(242,242,242,.5);
+  --sz-page: #f7f7f7;
+  --sz-surface: #ffffff;
+  --sz-font: "72", "72full", Arial, Helvetica, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sz-font-min: 12px;
+  --sz-font-body: 12px;
+  --sz-font-title: 14px;
+  --sz-font-root: 12px;
+  --sz-line-body: 18px;
+  --sz-line-label: 18px;
+  --sz-space-xs: 3px;
+  --sz-space-s: 6px;
+  --sz-space-m: 12px;
+  --sz-space-l: 24px;
+  --sz-space-xl: 36px;
+  --sz-radius-button: 3px;
+  --sz-radius-token: 3px;
+  --sz-control-height: 24px;
+  --sz-control-slot: 30px;
+  --sz-token-height: 18px;
+  --sz-toolbar-height: 36px;
+  --sz-table-header-height: 33px;
+  --sz-table-row-height: 30px;
+  --sz-page-header-height: 42px;
+  --sz-tab-height: 36px;
+  --sz-section-title-height: 36px;
+  --sz-filter-title-height: 42px;
+  --sz-filter-item-height: 48px;
+  --sz-dialog-footer-height: 36px;
+}
+/* 可独立复用的 HTML 演示控件。不是 SAPUI5 runtime；生产项目请映射原生控件。 */
+.sz-scope { font:400 var(--sz-font-body)/var(--sz-line-body) var(--sz-font); color:var(--sz-text); background:var(--sz-surface); text-align:left; }
+.sz-scope *, .sz-modal * { box-sizing:border-box; }
+.sz-scope h1,.sz-scope h2,.sz-scope h3 { font:400 var(--sz-font-title)/1.5 var(--sz-font); margin:0; }
+.sz-scope button,.sz-scope input,.sz-scope select,.sz-scope textarea,.sz-modal button,.sz-modal input { font-family:var(--sz-font); }
+.sz-btn { display:inline-flex; align-items:center; justify-content:center; position:relative; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:.75px solid var(--sz-brand); border-radius:var(--sz-radius-button); color:var(--sz-brand); background:white; font-size:var(--sz-font-body); line-height:22px; white-space:nowrap; cursor:pointer; }
+.sz-btn + .sz-btn { margin-left:var(--sz-space-xs); }
+.sz-btn.transparent { border-color:transparent; background:transparent; }
+.sz-btn.transparent:hover:not(:disabled) { background:var(--sz-brand-weak); }
+.sz-btn.primary { background:var(--sz-brand); color:white; font-weight:700; }
+.sz-btn.ghost { background:transparent; }
+.sz-btn:not(.transparent):active:not(:disabled) { background:var(--sz-brand); color:white; }
+.sz-btn:disabled { opacity:.5; cursor:not-allowed; }
+.sz-btn[hidden] { display:none; }
+.sz-btn.icon { min-width:30px; padding:0 3px; }
+.sz-icon { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.5; vertical-align:middle; }
+.sz-input,.sz-select { width:100%; min-width:0; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:1px solid var(--sz-input-border); border-radius:0; color:var(--sz-text); background:var(--sz-surface); font-size:var(--sz-font-body); line-height:18px; }
+.sz-input::placeholder { color:var(--sz-secondary); }
+.sz-input:hover:not(:disabled),.sz-select:hover:not(:disabled),.sz-input:focus,.sz-select:focus { border-color:var(--sz-brand); }
+.sz-input[readonly],.sz-select:disabled { background:var(--sz-readonly); }
+.sz-input:disabled { opacity:.5; cursor:not-allowed; }
+.sz-input.number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-field { min-width:0; }
+.sz-field>label { display:block; line-height:18px; color:var(--sz-label); }
+.sz-required { color:var(--sz-required); font-size:12px; font-weight:700; margin-right:3px; }
+.sz-with-icon { display:flex; align-items:center; position:relative; }
+.sz-with-icon .sz-input { padding-right:24px; }
+.sz-with-icon>button { position:absolute; right:1px; width:22px; height:22px; border:0; color:var(--sz-brand); background:transparent; padding:0; cursor:pointer; }
+.sz-textarea { width:100%; border:1px solid var(--sz-input-border); border-radius:0; padding:6px; resize:vertical; font-size:12px; color:var(--sz-text); }
+.sz-check,.sz-radio { accent-color:var(--sz-brand); vertical-align:middle; margin:0 3px 0 0; }
+.sz-choice { display:inline-flex; align-items:center; margin-right:12px; }
+.sz-multi { display:flex; align-items:center; gap:3px; min-height:var(--sz-control-height); border:1px solid var(--sz-input-border); padding:1px 3px; margin:3px 0; }
+.sz-token { display:inline-flex; align-items:center; height:var(--sz-token-height); padding:0 3px; border:1px solid var(--sz-brand); border-radius:3px; color:var(--sz-brand); background:var(--sz-zebra); font-size:12px; white-space:nowrap; }
+.sz-token button { font-size:12px; color:inherit; background:none; border:0; padding:0 0 0 3px; line-height:12px; cursor:pointer; }
+.sz-toolbar { display:flex; align-items:center; gap:3px; min-height:var(--sz-toolbar-height); padding:0 6px; border-bottom:1px solid var(--sz-toolbar-line); background:white; }
+.sz-toolbar h3 { margin-right:auto; white-space:nowrap; }
+.sz-toolbar-actions { display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+.sz-table-scroll { width:100%; overflow:auto; max-height:300px; position:relative; }
+.sz-table { width:100%; min-width:650px; border-collapse:separate; border-spacing:0; table-layout:fixed; color:var(--sz-text); font-size:12px; }
+.sz-table th { position:sticky; top:0; z-index:1; height:var(--sz-table-header-height); padding:0 6px; background:var(--sz-table-header); border:solid var(--sz-line); border-width:0 1px 1px 0; font-weight:400; text-align:center; white-space:normal; }
+.sz-table td { height:var(--sz-table-row-height); padding:0 6px; border:solid var(--sz-line); border-width:0 1px 1px 0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.sz-table tbody tr:nth-child(even) { background:var(--sz-zebra); }
+.sz-table tr.selected { background:var(--sz-brand-weak)!important; }
+.sz-table .center { text-align:center; }
+.sz-table .number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-table .long { text-align:left; }
+.sz-table.responsive td,.sz-table.responsive th { border-right:0; }
+.sz-status { color:var(--sz-status); white-space:nowrap; }
+.sz-status.approved { color:var(--sz-brand); }
+.sz-status.error { color:var(--sz-error); }
+.sz-filter { background:white; padding-bottom:24px; }
+.sz-filter-title { min-height:var(--sz-filter-title-height); padding:6px; display:flex; align-items:center; color:var(--sz-brand); }
+.sz-filter-title button { border:0; background:none; color:inherit; cursor:pointer; font-size:14px; padding:0; }
+.sz-filter-fields { padding:0 36px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0 12px; }
+.sz-filter-fields>.sz-field { min-height:var(--sz-filter-item-height); }
+.sz-filter-actions { display:flex; justify-content:flex-end; align-items:center; padding:0 36px; gap:3px; }
+.sz-filter.collapsed .sz-filter-fields,.sz-filter.collapsed .sz-filter-actions { display:none; }
+.sz-page-gap { height:12px; background:var(--sz-page); }
+.sz-page-header { height:var(--sz-page-header-height); display:flex; align-items:center; padding:0 6px; background:white; }
+.sz-page-header h3 { margin-right:auto; }
+.sz-section { background:white; margin-bottom:24px; }
+.sz-section-title { min-height:var(--sz-section-title-height); padding:0 36px; display:flex; align-items:center; }
+.sz-section-title span { border-bottom:2px solid var(--sz-brand); padding-bottom:6px; color:var(--sz-brand); }
+.sz-form { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 24px; padding:12px 24px; }
+.sz-form>.sz-field { display:grid; grid-template-columns:4fr 8fr; align-items:center; gap:3px; }
+.sz-form>.sz-field>label { text-align:right; }
+.sz-form>.sz-field.full { grid-column:1/-1; grid-template-columns:1fr 8fr; }
+.sz-tabs { display:flex; height:var(--sz-tab-height); border-bottom:1px solid var(--sz-line); background:white; }
+.sz-tab { border:0; border-bottom:2px solid transparent; background:transparent; color:var(--sz-text); padding:0 12px; font-size:14px; cursor:pointer; }
+.sz-tab[aria-selected=true] { color:var(--sz-brand); border-bottom-color:var(--sz-brand); }
+.sz-message { display:flex; align-items:flex-start; gap:6px; padding:6px 12px; color:var(--sz-brand); background:var(--sz-info-bg); border:1px solid var(--sz-brand); }
+.sz-empty { min-height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--sz-secondary); gap:6px; }
+.sz-empty svg { width:30px; height:30px; color:#89919a; }
+.sz-error-field { border-color:var(--sz-error); }
+.sz-field-error { color:var(--sz-error); font-size:12px; grid-column:2; }
+/* 下列为可访问性/加载/校验补充方案，原文未给精确值，详见待确认清单。 */
+.sz-scope :focus-visible,.sz-modal :focus-visible { outline:2px solid var(--sz-brand); outline-offset:2px; }
+.sz-busy { position:relative; pointer-events:none; }
+.sz-busy:after { content:"处理中…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.84); color:var(--sz-brand); z-index:4; }
+.sz-skeleton { display:grid; gap:6px; padding:12px; }
+.sz-skeleton span { height:12px; background:var(--sz-table-header); animation:sz-pulse 1.2s ease-in-out infinite alternate; }
+@keyframes sz-pulse { to { opacity:.4; } }
+.sz-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.36); display:grid; place-items:center; z-index:100; padding:24px; }
+.sz-modal { background:white; width:80%; max-height:85vh; overflow:auto; border:1px solid var(--sz-line); font:400 12px/18px var(--sz-font); color:var(--sz-text); }
+.sz-modal.small { width:36%; min-width:280px; max-width:560px; }
+.sz-modal-header { min-height:36px; padding:6px 24px; position:relative; text-align:center; font-size:14px; }
+.sz-modal-header>button { position:absolute; right:6px; top:6px; background:none; border:0; color:var(--sz-secondary); cursor:pointer; }
+.sz-modal-body { padding:12px 24px; }
+.sz-modal-footer { height:var(--sz-dialog-footer-height); display:flex; align-items:center; justify-content:flex-end; padding:0 6px; border-top:1px solid var(--sz-line); }
+.sz-modal.error { border-top:3px solid var(--sz-error); }
+@media(prefers-reduced-motion:reduce) { .sz-skeleton span { animation:none; } }
+</style>
+<style>
+  body { min-width: 1024px; margin: 0; background: var(--sz-page); }
+  .z-appbar { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; background: var(--sz-surface); border-bottom: 1px solid var(--sz-toolbar-line); color: var(--sz-secondary); }
+  .z-appbar .z-brand { color: var(--sz-text); font-size: var(--sz-font-title); }
+  .z-appbar .z-user { margin-left: auto; }
+  .z-page { padding: 0 24px 24px; }
+  .z-pagehead { height: var(--sz-page-header-height); display: flex; align-items: center; margin: 0 -24px 12px; padding: 0 12px; background: var(--sz-surface); border-bottom: 1px solid var(--sz-line); }
+  .z-pagehead h2 { margin-right: auto; display: flex; align-items: center; gap: 12px; }
+  .z-pagehead .z-billno { color: var(--sz-secondary); font-size: 12px; }
+  .z-range { display: flex; align-items: center; gap: 3px; }
+  .z-range .sz-input { flex: 1 1 0; }
+  .sz-form > .sz-field.z-span2 { grid-column: span 2; grid-template-columns: 4fr 20fr; }
+  .z-subtable { width: 100%; min-width: 720px; }
+  .z-subtable td, .z-subtable th { white-space: nowrap; }
+  .z-attach { border-top: 1px solid var(--sz-line); }
+  .z-attach:first-of-type { border-top: 0; }
+  .z-attach .sz-toolbar { border-bottom: 1px solid var(--sz-line); }
+  .z-attach .sz-toolbar h3 { display: flex; align-items: center; gap: 6px; }
+  .z-attach-count { color: var(--sz-secondary); font-size: 12px; }
+  .z-attach-table { min-width: 100%; }
+  .z-note { margin-top: 12px; color: var(--sz-secondary); font-size: 12px; }
+</style>
+</head>
+<body class="sz-scope">
+
+<div class="z-appbar">
+  <span class="z-brand">绿洲商管</span>
+  <span>/</span>
+  <span>室外街商机管理</span>
+  <span>/</span>
+  <span>签约确认单</span>
+  <span class="z-user">陈思远（上海虹桥项目）</span>
+</div>
+
+<main class="z-page">
+  <div class="z-pagehead">
+    <h2>
+      <span>签约确认单</span>
+      <span class="z-billno">单据编号：SW2026111100012</span>
+      <span class="sz-status approved">已通过</span>
+    </h2>
+    <button type="button" class="sz-btn ghost" id="backBtn">返回</button>
+  </div>
+
+  <section class="sz-section" aria-label="基本信息">
+    <div class="sz-section-title"><span>基本信息</span></div>
+    <div class="sz-form">
+      <div class="sz-field">
+        <label for="billNo">单据编号</label>
+        <input class="sz-input" id="billNo" value="SW2026111100012" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="billStatus">单据状态</label>
+        <input class="sz-input" id="billStatus" value="已通过" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="signDate">签约时间</label>
+        <input class="sz-input" id="signDate" value="2026/11/10" readonly>
+      </div>
+
+      <div class="sz-field">
+        <label for="oppOwner">商机跟进人</label>
+        <input class="sz-input" id="oppOwner" value="陈思远" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="oppOrg">人员组织</label>
+        <input class="sz-input" id="oppOrg" value="华东区域/上海虹桥项目" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="merchant">签约商户名称</label>
+        <input class="sz-input" id="merchant" value="上海星巴克咖啡经营有限公司" readonly>
+      </div>
+
+      <div class="sz-field">
+        <label for="brand">品牌</label>
+        <input class="sz-input" id="brand" value="星巴克" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="industry">经营业态</label>
+        <input class="sz-input" id="industry" value="餐饮" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="rent">租金（元/㎡/月）</label>
+        <input class="sz-input number" id="rent" value="320.00" readonly>
+      </div>
+
+      <div class="sz-field">
+        <label for="leaseStart">合同期</label>
+        <div class="z-range">
+          <input class="sz-input" id="leaseStart" value="2026/12/01" readonly>
+          <span aria-hidden="true">~</span>
+          <input class="sz-input" id="leaseEnd" value="2029/11/30" readonly>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="payMethod">付款方式</label>
+        <input class="sz-input" id="payMethod" value="季度" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="freeDays">免租期（天）</label>
+        <input class="sz-input number" id="freeDays" value="90" readonly>
+      </div>
+
+      <div class="sz-field">
+        <label for="units">铺位号</label>
+        <input class="sz-input" id="units" value="1F-108、1F-109" readonly>
+      </div>
+      <div class="sz-field">
+        <label for="areaTotal">面积（㎡）</label>
+        <input class="sz-input number" id="areaTotal" value="158.40" readonly>
+      </div>
+
+      <div class="sz-field full">
+        <label for="remark">备注说明</label>
+        <textarea class="sz-textarea" id="remark" rows="2" readonly style="background:var(--sz-readonly);"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="sz-section" aria-label="附件信息">
+    <div class="sz-section-title"><span>附件信息</span></div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3>租赁合同 <span class="z-attach-count">已上传 2 / 9</span></h3>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="租赁合同附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:130px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td class="long">星巴克上海虹桥店租赁合同.pdf</td><td class="number">2.4 MB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:32</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button></td></tr>
+          <tr><td class="long">租赁合同补充协议.pdf</td><td class="number">860 KB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:35</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3>身份证明材料 <span class="z-attach-count">已上传 1 / 9</span></h3>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="身份证明材料附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:130px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td class="long">星巴克营业执照.pdf</td><td class="number">1.1 MB</td><td class="center">陈思远</td><td class="center">2026/11/10 09:36</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="z-attach">
+      <div class="sz-toolbar">
+        <h3>首期租金及押金付款凭证 <span class="z-attach-count">已上传 1 / 9</span></h3>
+      </div>
+      <table class="sz-table z-attach-table" aria-label="首期租金及押金付款凭证附件">
+        <colgroup><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:150px"><col style="width:130px"></colgroup>
+        <thead><tr><th>文件名</th><th>文件大小</th><th>上传人</th><th>上传时间</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr><td class="long">首期租金及押金付款凭证.jpg</td><td class="number">1.8 MB</td><td class="center">陈思远</td><td class="center">2026/11/10 10:02</td><td class="center"><button type="button" class="sz-btn transparent">预览</button><button type="button" class="sz-btn transparent">下载</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="z-note">原型演示数据均为虚构，不代表真实单据、审批结果或商机数据。</p>
+</main>
+
+<script>
+  document.getElementById('backBtn').addEventListener('click', () => {
+    window.location.href = '室外街商机管理-签约确认单列表.html';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size:12px">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>签约确认单列表 — 室外街商机管理</title>
+<!-- 绿洲 SAP UI 基线 seazen-sap-ui 0.9.1-review：tokens.css + controls.css 已内联，本文件可单独拷出打开 -->
+<style>
+/* 绿洲 SAPUI5 · v0.9.1 评审稿。颜色/间距基线来自 S1，字号及关联尺寸按 U1 12px 下限适配；命名为本交付新增映射。 */
+:root {
+  --sz-brand: #427ec0;
+  --sz-brand-weak: #f0f6ff;
+  --sz-info-bg: #f5faff;
+  --sz-text: #32363a;
+  --sz-label: #333333;
+  --sz-secondary: #777777;
+  --sz-status: #6a6d70;
+  --sz-required: #ce3b3b;
+  --sz-warning: #e9730c;
+  --sz-error: #bb0000;
+  --sz-input-border: #89919a;
+  --sz-toolbar-line: #d9d9d9;
+  --sz-line: #e5e5e5;
+  --sz-table-header: #f2f2f2;
+  --sz-zebra: #fafafa;
+  --sz-readonly: rgba(242,242,242,.5);
+  --sz-page: #f7f7f7;
+  --sz-surface: #ffffff;
+  --sz-font: "72", "72full", Arial, Helvetica, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sz-font-min: 12px;
+  --sz-font-body: 12px;
+  --sz-font-title: 14px;
+  --sz-font-root: 12px;
+  --sz-line-body: 18px;
+  --sz-line-label: 18px;
+  --sz-space-xs: 3px;
+  --sz-space-s: 6px;
+  --sz-space-m: 12px;
+  --sz-space-l: 24px;
+  --sz-space-xl: 36px;
+  --sz-radius-button: 3px;
+  --sz-radius-token: 3px;
+  --sz-control-height: 24px;
+  --sz-control-slot: 30px;
+  --sz-token-height: 18px;
+  --sz-toolbar-height: 36px;
+  --sz-table-header-height: 33px;
+  --sz-table-row-height: 30px;
+  --sz-page-header-height: 42px;
+  --sz-tab-height: 36px;
+  --sz-section-title-height: 36px;
+  --sz-filter-title-height: 42px;
+  --sz-filter-item-height: 48px;
+  --sz-dialog-footer-height: 36px;
+}
+/* 可独立复用的 HTML 演示控件。不是 SAPUI5 runtime；生产项目请映射原生控件。 */
+.sz-scope { font:400 var(--sz-font-body)/var(--sz-line-body) var(--sz-font); color:var(--sz-text); background:var(--sz-surface); text-align:left; }
+.sz-scope *, .sz-modal * { box-sizing:border-box; }
+.sz-scope h1,.sz-scope h2,.sz-scope h3 { font:400 var(--sz-font-title)/1.5 var(--sz-font); margin:0; }
+.sz-scope button,.sz-scope input,.sz-scope select,.sz-scope textarea,.sz-modal button,.sz-modal input { font-family:var(--sz-font); }
+.sz-btn { display:inline-flex; align-items:center; justify-content:center; position:relative; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:.75px solid var(--sz-brand); border-radius:var(--sz-radius-button); color:var(--sz-brand); background:white; font-size:var(--sz-font-body); line-height:22px; white-space:nowrap; cursor:pointer; }
+.sz-btn + .sz-btn { margin-left:var(--sz-space-xs); }
+.sz-btn.transparent { border-color:transparent; background:transparent; }
+.sz-btn.transparent:hover:not(:disabled) { background:var(--sz-brand-weak); }
+.sz-btn.primary { background:var(--sz-brand); color:white; font-weight:700; }
+.sz-btn.ghost { background:transparent; }
+.sz-btn:not(.transparent):active:not(:disabled) { background:var(--sz-brand); color:white; }
+.sz-btn:disabled { opacity:.5; cursor:not-allowed; }
+.sz-btn[hidden] { display:none; }
+.sz-btn.icon { min-width:30px; padding:0 3px; }
+.sz-icon { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:1.5; vertical-align:middle; }
+.sz-input,.sz-select { width:100%; min-width:0; height:var(--sz-control-height); margin:3px 0; padding:0 6px; border:1px solid var(--sz-input-border); border-radius:0; color:var(--sz-text); background:var(--sz-surface); font-size:var(--sz-font-body); line-height:18px; }
+.sz-input::placeholder { color:var(--sz-secondary); }
+.sz-input:hover:not(:disabled),.sz-select:hover:not(:disabled),.sz-input:focus,.sz-select:focus { border-color:var(--sz-brand); }
+.sz-input[readonly],.sz-select:disabled { background:var(--sz-readonly); }
+.sz-input:disabled { opacity:.5; cursor:not-allowed; }
+.sz-input.number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-field { min-width:0; }
+.sz-field>label { display:block; line-height:18px; color:var(--sz-label); }
+.sz-required { color:var(--sz-required); font-size:12px; font-weight:700; margin-right:3px; }
+.sz-with-icon { display:flex; align-items:center; position:relative; }
+.sz-with-icon .sz-input { padding-right:24px; }
+.sz-with-icon>button { position:absolute; right:1px; width:22px; height:22px; border:0; color:var(--sz-brand); background:transparent; padding:0; cursor:pointer; }
+.sz-textarea { width:100%; border:1px solid var(--sz-input-border); border-radius:0; padding:6px; resize:vertical; font-size:12px; color:var(--sz-text); }
+.sz-check,.sz-radio { accent-color:var(--sz-brand); vertical-align:middle; margin:0 3px 0 0; }
+.sz-choice { display:inline-flex; align-items:center; margin-right:12px; }
+.sz-multi { display:flex; align-items:center; gap:3px; min-height:var(--sz-control-height); border:1px solid var(--sz-input-border); padding:1px 3px; margin:3px 0; }
+.sz-token { display:inline-flex; align-items:center; height:var(--sz-token-height); padding:0 3px; border:1px solid var(--sz-brand); border-radius:3px; color:var(--sz-brand); background:var(--sz-zebra); font-size:12px; white-space:nowrap; }
+.sz-token button { font-size:12px; color:inherit; background:none; border:0; padding:0 0 0 3px; line-height:12px; cursor:pointer; }
+.sz-toolbar { display:flex; align-items:center; gap:3px; min-height:var(--sz-toolbar-height); padding:0 6px; border-bottom:1px solid var(--sz-toolbar-line); background:white; }
+.sz-toolbar h3 { margin-right:auto; white-space:nowrap; }
+.sz-toolbar-actions { display:flex; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+.sz-table-scroll { width:100%; overflow:auto; max-height:300px; position:relative; }
+.sz-table { width:100%; min-width:650px; border-collapse:separate; border-spacing:0; table-layout:fixed; color:var(--sz-text); font-size:12px; }
+.sz-table th { position:sticky; top:0; z-index:1; height:var(--sz-table-header-height); padding:0 6px; background:var(--sz-table-header); border:solid var(--sz-line); border-width:0 1px 1px 0; font-weight:400; text-align:center; white-space:normal; }
+.sz-table td { height:var(--sz-table-row-height); padding:0 6px; border:solid var(--sz-line); border-width:0 1px 1px 0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.sz-table tbody tr:nth-child(even) { background:var(--sz-zebra); }
+.sz-table tr.selected { background:var(--sz-brand-weak)!important; }
+.sz-table .center { text-align:center; }
+.sz-table .number { text-align:right; font-variant-numeric:tabular-nums; }
+.sz-table .long { text-align:left; }
+.sz-table.responsive td,.sz-table.responsive th { border-right:0; }
+.sz-status { color:var(--sz-status); white-space:nowrap; }
+.sz-status.approved { color:var(--sz-brand); }
+.sz-status.error { color:var(--sz-error); }
+.sz-filter { background:white; padding-bottom:24px; }
+.sz-filter-title { min-height:var(--sz-filter-title-height); padding:6px; display:flex; align-items:center; color:var(--sz-brand); }
+.sz-filter-title button { border:0; background:none; color:inherit; cursor:pointer; font-size:14px; padding:0; }
+.sz-filter-fields { padding:0 36px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0 12px; }
+.sz-filter-fields>.sz-field { min-height:var(--sz-filter-item-height); }
+.sz-filter-actions { display:flex; justify-content:flex-end; align-items:center; padding:0 36px; gap:3px; }
+.sz-filter.collapsed .sz-filter-fields,.sz-filter.collapsed .sz-filter-actions { display:none; }
+.sz-page-gap { height:12px; background:var(--sz-page); }
+.sz-page-header { height:var(--sz-page-header-height); display:flex; align-items:center; padding:0 6px; background:white; }
+.sz-page-header h3 { margin-right:auto; }
+.sz-section { background:white; margin-bottom:24px; }
+.sz-section-title { min-height:var(--sz-section-title-height); padding:0 36px; display:flex; align-items:center; }
+.sz-section-title span { border-bottom:2px solid var(--sz-brand); padding-bottom:6px; color:var(--sz-brand); }
+.sz-form { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 24px; padding:12px 24px; }
+.sz-form>.sz-field { display:grid; grid-template-columns:4fr 8fr; align-items:center; gap:3px; }
+.sz-form>.sz-field>label { text-align:right; }
+.sz-form>.sz-field.full { grid-column:1/-1; grid-template-columns:1fr 8fr; }
+.sz-tabs { display:flex; height:var(--sz-tab-height); border-bottom:1px solid var(--sz-line); background:white; }
+.sz-tab { border:0; border-bottom:2px solid transparent; background:transparent; color:var(--sz-text); padding:0 12px; font-size:14px; cursor:pointer; }
+.sz-tab[aria-selected=true] { color:var(--sz-brand); border-bottom-color:var(--sz-brand); }
+.sz-message { display:flex; align-items:flex-start; gap:6px; padding:6px 12px; color:var(--sz-brand); background:var(--sz-info-bg); border:1px solid var(--sz-brand); }
+.sz-empty { min-height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--sz-secondary); gap:6px; }
+.sz-empty svg { width:30px; height:30px; color:#89919a; }
+.sz-error-field { border-color:var(--sz-error); }
+.sz-field-error { color:var(--sz-error); font-size:12px; grid-column:2; }
+/* 下列为可访问性/加载/校验补充方案，原文未给精确值，详见待确认清单。 */
+.sz-scope :focus-visible,.sz-modal :focus-visible { outline:2px solid var(--sz-brand); outline-offset:2px; }
+.sz-busy { position:relative; pointer-events:none; }
+.sz-busy:after { content:"处理中…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.84); color:var(--sz-brand); z-index:4; }
+.sz-skeleton { display:grid; gap:6px; padding:12px; }
+.sz-skeleton span { height:12px; background:var(--sz-table-header); animation:sz-pulse 1.2s ease-in-out infinite alternate; }
+@keyframes sz-pulse { to { opacity:.4; } }
+.sz-modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.36); display:grid; place-items:center; z-index:100; padding:24px; }
+.sz-modal { background:white; width:80%; max-height:85vh; overflow:auto; border:1px solid var(--sz-line); font:400 12px/18px var(--sz-font); color:var(--sz-text); }
+.sz-modal.small { width:36%; min-width:280px; max-width:560px; }
+.sz-modal-header { min-height:36px; padding:6px 24px; position:relative; text-align:center; font-size:14px; }
+.sz-modal-header>button { position:absolute; right:6px; top:6px; background:none; border:0; color:var(--sz-secondary); cursor:pointer; }
+.sz-modal-body { padding:12px 24px; }
+.sz-modal-footer { height:var(--sz-dialog-footer-height); display:flex; align-items:center; justify-content:flex-end; padding:0 6px; border-top:1px solid var(--sz-line); }
+.sz-modal.error { border-top:3px solid var(--sz-error); }
+@media(prefers-reduced-motion:reduce) { .sz-skeleton span { animation:none; } }
+</style>
+<style>
+  body { min-width: 1024px; margin: 0; background: var(--sz-page); }
+  .z-appbar { display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; background: var(--sz-surface); border-bottom: 1px solid var(--sz-toolbar-line); color: var(--sz-secondary); }
+  .z-appbar .z-brand { color: var(--sz-text); font-size: var(--sz-font-title); }
+  .z-appbar .z-user { margin-left: auto; }
+  .z-page { padding: 12px 24px 24px; }
+  .z-filter-meta { margin-left: 12px; color: var(--sz-secondary); font-size: 12px; }
+  .z-ms-field, .z-range-field { position: relative; }
+  .z-ms > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; height: var(--sz-control-height); margin: 3px 0; padding: 0 6px; border: 1px solid var(--sz-input-border); background: var(--sz-surface); color: var(--sz-secondary); cursor: pointer; }
+  .z-ms > summary::-webkit-details-marker { display: none; }
+  .z-ms[open] > summary { border-color: var(--sz-brand); }
+  .z-ms-panel { position: absolute; left: 0; right: 0; top: 27px; z-index: 30; padding: 6px; background: var(--sz-surface); border: 1px solid var(--sz-input-border); max-height: 180px; overflow: auto; }
+  .z-range { display: flex; align-items: center; gap: 3px; }
+  .z-range .sz-input { flex: 1 1 0; }
+  .z-more[hidden] { display: none; }
+  .z-content { background: var(--sz-surface); }
+  .z-table-wrap { max-height: calc(100vh - 348px); min-height: 240px; overflow: auto; }
+  .z-table-wrap .sz-table { min-width: 1344px; }
+  .z-table-wrap tbody tr { cursor: pointer; }
+  .z-table-wrap tbody tr:hover { background: var(--sz-brand-weak); }
+  .z-pager { display: flex; align-items: center; justify-content: flex-end; gap: 6px; min-height: 36px; padding: 0 6px; border-top: 1px solid var(--sz-line); color: var(--sz-secondary); }
+  .z-pager .sz-select { width: 60px; }
+  .z-pager .z-page-btn { min-width: 24px; }
+  .z-pager .current { background: var(--sz-brand); color: #fff; font-weight: 700; }
+  .z-note { margin-top: 12px; color: var(--sz-secondary); font-size: 12px; }
+  .sz-modal-backdrop[hidden] { display: none; }
+</style>
+</head>
+<body class="sz-scope">
+
+<div class="z-appbar">
+  <span class="z-brand">绿洲商管</span>
+  <span>/</span>
+  <span>室外街商机管理</span>
+  <span>/</span>
+  <span>签约确认单</span>
+  <span class="z-user">陈思远（上海虹桥项目）</span>
+</div>
+
+<main class="z-page">
+
+  <section class="sz-filter" id="filterPanel" aria-label="筛选条件">
+    <div class="sz-filter-title">
+      <button type="button" id="filterToggle" aria-expanded="true">筛选条件</button>
+      <span class="z-filter-meta">常用 6 项 · 更多 5 项</span>
+    </div>
+
+    <div class="sz-filter-fields">
+      <div class="sz-field">
+        <label for="fBillNo">单据编号</label>
+        <input class="sz-input" id="fBillNo" placeholder="请输入单据编号">
+      </div>
+      <div class="sz-field">
+        <label for="fOwner">商机跟进人</label>
+        <div class="sz-with-icon">
+          <input class="sz-input" id="fOwner" placeholder="请选择人员" readonly>
+          <button type="button" title="选择商机跟进人" aria-label="选择商机跟进人">
+            <svg class="sz-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5 14 14"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="fBrand">品牌</label>
+        <input class="sz-input" id="fBrand" placeholder="请输入品牌名称">
+      </div>
+      <div class="sz-field z-ms-field">
+        <label>经营业态</label>
+        <details class="z-ms">
+          <summary><span>请选择（可多选）</span><span aria-hidden="true">▾</span></summary>
+          <div class="z-ms-panel">
+            <label class="sz-choice"><input type="checkbox" class="sz-check">餐饮</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">零售</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">休闲娱乐</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">生活服务</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">教育培训</label>
+          </div>
+        </details>
+      </div>
+      <div class="sz-field z-ms-field">
+        <label>单据状态</label>
+        <details class="z-ms">
+          <summary><span>请选择（可多选）</span><span aria-hidden="true">▾</span></summary>
+          <div class="z-ms-panel">
+            <label class="sz-choice"><input type="checkbox" class="sz-check">草稿</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">审批中</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">已通过</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">已驳回</label>
+            <label class="sz-choice"><input type="checkbox" class="sz-check">已撤回</label>
+          </div>
+        </details>
+      </div>
+      <div class="sz-field z-range-field">
+        <label for="fSignFrom">签约时间</label>
+        <div class="z-range">
+          <input class="sz-input" id="fSignFrom" placeholder="yyyy/MM/dd">
+          <span aria-hidden="true">~</span>
+          <input class="sz-input" id="fSignTo" placeholder="yyyy/MM/dd">
+        </div>
+      </div>
+    </div>
+
+    <div class="sz-filter-fields z-more" id="moreFields" hidden>
+      <div class="sz-field">
+        <label for="fOppNo">商机编号</label>
+        <input class="sz-input" id="fOppNo" placeholder="请输入商机编号">
+      </div>
+      <div class="sz-field">
+        <label for="fUnit">铺位号</label>
+        <input class="sz-input" id="fUnit" placeholder="请输入铺位号">
+      </div>
+      <div class="sz-field">
+        <label for="fOrg">人员组织</label>
+        <div class="sz-with-icon">
+          <input class="sz-input" id="fOrg" placeholder="请选择组织" readonly>
+          <button type="button" title="选择人员组织" aria-label="选择人员组织">
+            <svg class="sz-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h8"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sz-field">
+        <label for="fCreator">创建人</label>
+        <input class="sz-input" id="fCreator" placeholder="请输入创建人">
+      </div>
+      <div class="sz-field z-range-field">
+        <label for="fCreateFrom">创建时间</label>
+        <div class="z-range">
+          <input class="sz-input" id="fCreateFrom" placeholder="yyyy/MM/dd">
+          <span aria-hidden="true">~</span>
+          <input class="sz-input" id="fCreateTo" placeholder="yyyy/MM/dd">
+        </div>
+      </div>
+    </div>
+
+    <div class="sz-filter-actions">
+      <button type="button" class="sz-btn transparent" id="moreBtn" aria-expanded="false">更多筛选</button>
+      <button type="button" class="sz-btn ghost">重置</button>
+      <button type="button" class="sz-btn primary">查询</button>
+    </div>
+  </section>
+
+  <div class="sz-page-gap"></div>
+
+  <section class="z-content" aria-label="签约确认单列表">
+    <div class="sz-toolbar">
+      <h3>签约确认单 (共 <span id="totalCount">128</span> 条)</h3>
+      <div class="sz-toolbar-actions">
+        <button type="button" class="sz-btn transparent" data-op="view" disabled>查看</button>
+        <button type="button" class="sz-btn transparent" data-op="edit" disabled>编辑</button>
+        <button type="button" class="sz-btn transparent" data-op="submit" disabled>提交审批</button>
+        <button type="button" class="sz-btn transparent" data-op="resubmit" disabled hidden>重新提交</button>
+        <button type="button" class="sz-btn transparent" data-op="approval" disabled>查看审批</button>
+        <button type="button" class="sz-btn transparent" data-op="delete" disabled>删除</button>
+        <button type="button" class="sz-btn transparent" data-op="create">新增</button>
+      </div>
+    </div>
+
+    <div class="z-table-wrap">
+      <table class="sz-table" aria-label="签约确认单列表">
+        <colgroup>
+          <col style="width:84px"><col style="width:140px"><col style="width:110px"><col style="width:86px">
+          <col style="width:160px"><col style="width:88px"><col style="width:120px"><col style="width:180px">
+          <col style="width:90px"><col style="width:96px"><col style="width:100px"><col style="width:90px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>单据状态</th>
+            <th>单据编号</th>
+            <th>品牌</th>
+            <th>经营业态</th>
+            <th>铺位号</th>
+            <th>面积（㎡）</th>
+            <th>租金（元/㎡/月）</th>
+            <th>合同期</th>
+            <th>付款方式</th>
+            <th>免租期（天）</th>
+            <th>签约时间</th>
+            <th>商机跟进人</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr tabindex="0" data-no="SW2026111100012" data-status="10">
+            <td class="center"><span class="sz-status">草稿</span></td><td class="long">SW2026111100012</td>
+            <td class="long">星巴克</td><td class="center">餐饮</td><td class="long">1F-108、1F-109</td>
+            <td class="number">158.40</td><td class="number">320.00</td><td class="center">2026/12/01-2029/11/30</td>
+            <td class="center">季度</td><td class="number">90</td><td class="center">2026/11/10</td><td class="center">陈思远</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026111000008" data-status="20">
+            <td class="center"><span class="sz-status">审批中</span></td><td class="long">SW2026111000008</td>
+            <td class="long">优衣库</td><td class="center">零售</td><td class="long">1F-205、1F-206</td>
+            <td class="number">240.00</td><td class="number">210.00</td><td class="center">2026/12/15-2029/12/14</td>
+            <td class="center">月度</td><td class="number">30</td><td class="center">2026/11/09</td><td class="center">李明</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110900015" data-status="30">
+            <td class="center"><span class="sz-status approved">已通过</span></td><td class="long">SW2026110900015</td>
+            <td class="long">喜茶</td><td class="center">餐饮</td><td class="long">2F-311、2F-312 等3个</td>
+            <td class="number">135.60</td><td class="number">180.00</td><td class="center">2026/11/20-2029/11/19</td>
+            <td class="center">季度</td><td class="number">60</td><td class="center">2026/11/08</td><td class="center">王倩</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110800004" data-status="40">
+            <td class="center"><span class="sz-status">已驳回</span></td><td class="long">SW2026110800004</td>
+            <td class="long">名创优品</td><td class="center">零售</td><td class="long">B1-022</td>
+            <td class="number">60.00</td><td class="number">260.00</td><td class="center">2027/01/01-2029/12/31</td>
+            <td class="center">半年度</td><td class="number">0</td><td class="center">2026/11/07</td><td class="center">赵磊</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110700009" data-status="50">
+            <td class="center"><span class="sz-status">已撤回</span></td><td class="long">SW2026110700009</td>
+            <td class="long">海底捞</td><td class="center">餐饮</td><td class="long">3F-401、3F-402</td>
+            <td class="number">320.50</td><td class="number">150.00</td><td class="center">2026/12/01-2031/11/30</td>
+            <td class="center">年度</td><td class="number">120</td><td class="center">2026/11/06</td><td class="center">孙悦</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110600002" data-status="10">
+            <td class="center"><span class="sz-status">草稿</span></td><td class="long">SW2026110600002</td>
+            <td class="long">屈臣氏</td><td class="center">零售</td><td class="long">1F-030</td>
+            <td class="number">72.00</td><td class="number">280.00</td><td class="center">2026/12/10-2029/12/09</td>
+            <td class="center">季度</td><td class="number">45</td><td class="center">2026/11/05</td><td class="center">周涛</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110500011" data-status="20">
+            <td class="center"><span class="sz-status">审批中</span></td><td class="long">SW2026110500011</td>
+            <td class="long">老乡鸡</td><td class="center">餐饮</td><td class="long">2F-215</td>
+            <td class="number">95.20</td><td class="number">165.00</td><td class="center">2026/11/25-2029/11/24</td>
+            <td class="center">月度</td><td class="number">15</td><td class="center">2026/11/04</td><td class="center">吴敏</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110400007" data-status="30">
+            <td class="center"><span class="sz-status approved">已通过</span></td><td class="long">SW2026110400007</td>
+            <td class="long">华为</td><td class="center">零售</td><td class="long">1F-101、1F-102 等3个</td>
+            <td class="number">198.00</td><td class="number">350.00</td><td class="center">2026/12/01-2031/11/30</td>
+            <td class="center">年度</td><td class="number">180</td><td class="center">2026/11/03</td><td class="center">郑凯</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110300014" data-status="30">
+            <td class="center"><span class="sz-status approved">已通过</span></td><td class="long">SW2026110300014</td>
+            <td class="long">瑞幸咖啡</td><td class="center">餐饮</td><td class="long">1F-056</td>
+            <td class="number">45.80</td><td class="number">300.00</td><td class="center">2026/12/05-2028/12/04</td>
+            <td class="center">季度</td><td class="number">30</td><td class="center">2026/11/02</td><td class="center">冯雪</td>
+          </tr>
+          <tr tabindex="0" data-no="SW2026110200003" data-status="10">
+            <td class="center"><span class="sz-status">草稿</span></td><td class="long">SW2026110200003</td>
+            <td class="long">周大福</td><td class="center">零售</td><td class="long">1F-078</td>
+            <td class="number">66.00</td><td class="number">420.00</td><td class="center">2027/01/05-2030/01/04</td>
+            <td class="center">半年度</td><td class="number">60</td><td class="center">2026/11/01</td><td class="center">何军</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="z-pager" aria-label="分页">
+      <span>共 <span id="pagerTotal">128</span> 条</span>
+      <span>每页</span>
+      <select class="sz-select" aria-label="每页条数">
+        <option selected>20</option><option>50</option><option>100</option>
+      </select>
+      <span>条</span>
+      <button type="button" class="sz-btn transparent" disabled>上一页</button>
+      <button type="button" class="sz-btn transparent current z-page-btn">1</button>
+      <button type="button" class="sz-btn transparent z-page-btn">2</button>
+      <button type="button" class="sz-btn transparent z-page-btn">3</button>
+      <span>…</span>
+      <button type="button" class="sz-btn transparent z-page-btn">7</button>
+      <button type="button" class="sz-btn transparent">下一页</button>
+    </div>
+  </section>
+
+  <p class="z-note">原型演示数据均为虚构，不代表真实单据、审批结果或商机数据。</p>
+</main>
+
+<!-- 删除确认 -->
+<div class="sz-modal-backdrop" id="delModal" hidden>
+  <div class="sz-modal small" role="dialog" aria-modal="true" aria-labelledby="delTitle">
+    <div class="sz-modal-header"><span id="delTitle">删除签约确认单</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('delModal')">✕</button>
+    </div>
+    <div class="sz-modal-body">
+      <p id="delText">确认删除该草稿单据？删除后列表不再展示，并释放关联商机；单据编号不再复用。</p>
+    </div>
+    <div class="sz-modal-footer">
+      <button type="button" class="sz-btn ghost" onclick="closeModal('delModal')">取消</button>
+      <button type="button" class="sz-btn primary" id="delConfirm">删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- 信息反馈 -->
+<div class="sz-modal-backdrop" id="infoModal" hidden>
+  <div class="sz-modal small" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="sz-modal-header"><span id="infoTitle">提示</span>
+      <button type="button" aria-label="关闭" onclick="closeModal('infoModal')">✕</button>
+    </div>
+    <div class="sz-modal-body"><p id="infoText"></p></div>
+    <div class="sz-modal-footer">
+      <button type="button" class="sz-btn primary" onclick="closeModal('infoModal')">确定</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const OPS = {
+    '10': ['view', 'edit', 'submit', 'delete'],
+    '20': ['view', 'approval'],
+    '30': ['view', 'approval'],
+    '40': ['view', 'edit', 'resubmit', 'approval'],
+    '50': ['view', 'edit', 'resubmit', 'approval']
+  };
+  const BASE = ['view', 'edit', 'submit', 'approval', 'delete'];
+  const detailUrl = '室外街商机管理-签约确认单详情.html';
+  const viewUrl = '室外街商机管理-签约确认单查看.html';
+  let selectedRow = null;
+
+  function setSelected(row) {
+    if (selectedRow) selectedRow.classList.remove('selected');
+    selectedRow = row;
+    if (row) row.classList.add('selected');
+    const allowed = row ? OPS[row.dataset.status] : [];
+    document.querySelectorAll('[data-op]').forEach(btn => {
+      const op = btn.dataset.op;
+      if (!row) {
+        btn.hidden = !BASE.includes(op);
+        btn.disabled = true;
+        btn.removeAttribute('title');
+      } else if (op === 'approval') {
+        btn.hidden = false;
+        btn.disabled = row.dataset.status === '10';
+        if (btn.disabled) { btn.title = '草稿未提交审批，无审批记录'; } else { btn.removeAttribute('title'); }
+      } else {
+        const ok = allowed.includes(op);
+        btn.hidden = !ok;
+        btn.disabled = !ok;
+        btn.removeAttribute('title');
+      }
+    });
+  }
+
+  document.querySelectorAll('.z-table-wrap tbody tr').forEach(row => {
+    row.addEventListener('click', () => setSelected(row));
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelected(row); }
+    });
+  });
+
+  document.querySelectorAll('[data-op]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const op = btn.dataset.op;
+      if (op === 'create') { window.location.href = detailUrl; return; }
+      if (!selectedRow) return;
+      if (op === 'view') { window.location.href = viewUrl; return; }
+      if (op === 'edit') { window.location.href = detailUrl; return; }
+      if (op === 'submit') { showInfo('提交审批', '已提交审批，单据状态更新为“审批中”，页面锁定。'); return; }
+      if (op === 'resubmit') { showInfo('重新提交', '已重新提交审批，单据状态更新为“审批中”。'); return; }
+      if (op === 'approval') { showInfo('查看审批', '将跳转至平台流程审批页面，展示当前审批节点、审批人与审批记录。该页面由流程审批组件提供，本原型不实现跳转页面。'); return; }
+      if (op === 'delete') {
+        document.getElementById('delText').textContent = '确认删除草稿单据 ' + selectedRow.dataset.no + '？删除后列表不再展示，并释放关联商机；单据编号不再复用。';
+        openModal('delModal');
+      }
+    });
+  });
+
+  document.getElementById('delConfirm').addEventListener('click', () => {
+    const no = selectedRow.dataset.no;
+    selectedRow.remove();
+    selectedRow = null;
+    setSelected(null);
+    const total = document.getElementById('totalCount');
+    total.textContent = String(Number(total.textContent) - 1);
+    document.getElementById('pagerTotal').textContent = total.textContent;
+    closeModal('delModal');
+    showInfo('删除成功', '单据 ' + no + ' 已逻辑删除，关联商机已释放。');
+  });
+
+  function showInfo(title, text) {
+    document.getElementById('infoTitle').textContent = title;
+    document.getElementById('infoText').textContent = text;
+    openModal('infoModal');
+  }
+  function openModal(id) { document.getElementById(id).hidden = false; }
+  function closeModal(id) { document.getElementById(id).hidden = true; }
+
+  document.getElementById('filterToggle').addEventListener('click', () => {
+    const panel = document.getElementById('filterPanel');
+    const collapsed = panel.classList.toggle('collapsed');
+    document.getElementById('filterToggle').setAttribute('aria-expanded', String(!collapsed));
+  });
+
+  document.getElementById('moreBtn').addEventListener('click', () => {
+    const more = document.getElementById('moreFields');
+    const expanded = more.hidden;
+    more.hidden = !expanded;
+    document.getElementById('moreBtn').textContent = expanded ? '收起筛选' : '更多筛选';
+    document.getElementById('moreBtn').setAttribute('aria-expanded', String(expanded));
+  });
+</script>
+</body>
+</html>

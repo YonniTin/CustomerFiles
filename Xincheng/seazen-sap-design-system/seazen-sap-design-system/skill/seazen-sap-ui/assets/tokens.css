@@ -1,0 +1,47 @@
+/* 绿洲 SAPUI5 · v0.9.1 评审稿。颜色/间距基线来自 S1，字号及关联尺寸按 U1 12px 下限适配；命名为本交付新增映射。 */
+:root {
+  --sz-brand: #427ec0;
+  --sz-brand-weak: #f0f6ff;
+  --sz-info-bg: #f5faff;
+  --sz-text: #32363a;
+  --sz-label: #333333;
+  --sz-secondary: #777777;
+  --sz-status: #6a6d70;
+  --sz-required: #ce3b3b;
+  --sz-warning: #e9730c;
+  --sz-error: #bb0000;
+  --sz-input-border: #89919a;
+  --sz-toolbar-line: #d9d9d9;
+  --sz-line: #e5e5e5;
+  --sz-table-header: #f2f2f2;
+  --sz-zebra: #fafafa;
+  --sz-readonly: rgba(242,242,242,.5);
+  --sz-page: #f7f7f7;
+  --sz-surface: #ffffff;
+  --sz-font: "72", "72full", Arial, Helvetica, "Microsoft YaHei", "PingFang SC", sans-serif;
+  --sz-font-min: 12px;
+  --sz-font-body: 12px;
+  --sz-font-title: 14px;
+  --sz-font-root: 12px;
+  --sz-line-body: 18px;
+  --sz-line-label: 18px;
+  --sz-space-xs: 3px;
+  --sz-space-s: 6px;
+  --sz-space-m: 12px;
+  --sz-space-l: 24px;
+  --sz-space-xl: 36px;
+  --sz-radius-button: 3px;
+  --sz-radius-token: 3px;
+  --sz-control-height: 24px;
+  --sz-control-slot: 30px;
+  --sz-token-height: 18px;
+  --sz-toolbar-height: 36px;
+  --sz-table-header-height: 33px;
+  --sz-table-row-height: 30px;
+  --sz-page-header-height: 42px;
+  --sz-tab-height: 36px;
+  --sz-section-title-height: 36px;
+  --sz-filter-title-height: 42px;
+  --sz-filter-item-height: 48px;
+  --sz-dialog-footer-height: 36px;
+}

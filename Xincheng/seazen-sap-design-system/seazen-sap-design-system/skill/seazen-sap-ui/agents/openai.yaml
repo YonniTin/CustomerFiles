@@ -1,0 +1,4 @@
+interface:
+  display_name: "绿洲 SAP UI 规范"
+  short_description: "以绿洲 SAPUI5 基线约束页面与 AI 生成，统一组件、业务状态并提供验收证据"
+  default_prompt: "使用 $seazen-sap-ui 为绿洲商管业务需求生成符合规范的页面，并列出规则引用与待确认项。"
