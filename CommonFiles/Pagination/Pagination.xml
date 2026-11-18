@@ -1,0 +1,64 @@
+<!--
+	SmartTable + pager reference. This fragment is not connected to the application.
+	The SmartTable.beforeRebindTable handler must prevent the default OData row binding;
+	the inner sap.ui.table.Table then displays only the current pageModel>/results.
+	No VBox is required: the SmartTable and pager are sibling controls.
+-->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:t="sap.ui.table">
+	<!-- SmartTable remains the entity/filter/variant-aware wrapper around the table. -->
+	<smartTable:SmartTable id="LineItemsSmartTable" entitySet="ZCSRE_I_SSCFM_LIST"
+		smartFilterId="smartFilterBar" beforeRebindTable="onBeforeRebindTable"
+		tableType="Table" enableAutoBinding="true" useVariantManagement="false"
+		useTablePersonalisation="false" showRowCount="false"
+		requestAtLeastFields="zprojid,status,statustxt,opp_no,rel_opp_no,sign_date,follow_name,brand_name,biztypeid,area_sum,rent,erdat">
+		<!-- Bind rows to the JSON page model, not to the full OData EntitySet.
+			This is what prevents table scrolling from loading the next OData chunk. -->
+		<t:Table id="ConstractTable" rows="{pageModel>/results}" threshold="0"
+			visibleRowCountMode="Auto" minAutoRowCount="5" alternateRowColors="true"
+			rowSelectionChange="rowSelectedChange" selectionMode="Single" selectionBehavior="RowOnly">
+			<t:columns>
+				<!-- Example columns; retain the application's real columns and bind each cell to pageModel. -->
+				<t:Column width="8rem" hAlign="Center">
+					<Label text="状态"/>
+					<t:template>
+						<ObjectStatus text="{pageModel>statustxt}"/>
+					</t:template>
+				</t:Column>
+				<t:Column width="12rem" hAlign="Left">
+					<Label text="单据编号"/>
+					<t:template>
+						<Text text="{pageModel>opp_no}"/>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table>
+	</smartTable:SmartTable>
+
+	<!-- Place this pager below the SmartTable or in the DynamicPage footer. -->
+	<OverflowToolbar class="sapUiContentPadding">
+		<ToolbarSpacer/>
+		<Text text="共 {paginationModel>/totalCount} 条"/>
+		<Label text="每页" class="sapUiTinyMarginBegin"/>
+		<ComboBox selectedKey="{paginationModel>/pageSize}" change="onPageSizeChange" width="5rem">
+			<items>
+				<core:Item key="5" text="5"/>
+				<core:Item key="10" text="10"/>
+				<core:Item key="20" text="20"/>
+				<core:Item key="50" text="50"/>
+				<core:Item key="100" text="100"/>
+			</items>
+		</ComboBox>
+		<Label text="条" class="sapUiTinyMarginBegin"/>
+		<Button text="上一页" press="onPrevPage" class="paginationNavButton"
+			enabled="{= ${paginationModel>/currentPage} > 1}"/>
+		<HBox items="{paginationModel>/pageItems}" class="sapUiTinyMarginBeginEnd">
+			<items>
+				<Button text="{paginationModel>text}" type="{paginationModel>type}" enabled="{paginationModel>enabled}"
+					class="paginationPageButton" press="onPageNumberPress"/>
+			</items>
+		</HBox>
+		<Button text="下一页" press="onNextPage" class="paginationNavButton"
+			enabled="{= ${paginationModel>/totalPages} > 0 &amp;&amp; ${paginationModel>/currentPage} &lt; ${paginationModel>/totalPages} }"/>
+	</OverflowToolbar>
+</core:FragmentDefinition>

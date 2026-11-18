@@ -1,0 +1,54 @@
+/* Base colors and borders for page-size and page-number controls. */
+.sapMBtn.paginationNavButton .sapMBtnInner,
+.sapMBtn.paginationPageButton .sapMBtnInner {
+	border: 1px solid #245b8f !important;
+	color: #164a75 !important;
+	background-color: #ffffff !important;
+	text-shadow: none !important;
+	opacity: 1 !important;
+}
+
+.sapMBtn.paginationNavButton .sapMBtnContent,
+.sapMBtn.paginationPageButton .sapMBtnContent {
+	color: #164a75 !important;
+	-webkit-text-fill-color: #164a75 !important;
+	font-weight: 600;
+}
+
+/* Keep non-current page numbers readable under the UI5 theme. */
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnDefault .sapMBtnContent,
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnDefault .sapMBtnContent span {
+	color: #164a75 !important;
+	-webkit-text-fill-color: #164a75 !important;
+	opacity: 1 !important;
+}
+
+/* Highlight the selected page and maintain contrast in hover/pressed states. */
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnEmphasized {
+	border-color: #174f82 !important;
+	color: #ffffff !important;
+	background-color: #174f82 !important;
+}
+
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnEmphasized .sapMBtnContent,
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnEmphasized .sapMBtnContent span,
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnEmphasized:hover .sapMBtnContent,
+.sapMBtn.paginationPageButton .sapMBtnInner.sapMBtnEmphasized:active .sapMBtnContent {
+	color: #ffffff !important;
+	-webkit-text-fill-color: #ffffff !important;
+	opacity: 1 !important;
+}
+
+/* Disabled previous/next buttons remain visible but have a muted appearance. */
+.sapMBtn.paginationNavButton.sapMBtnDisabled .sapMBtnInner,
+.sapMBtn.paginationPageButton.sapMBtnDisabled .sapMBtnInner {
+	border-color: #7d8fa1 !important;
+	color: #46596c !important;
+	background-color: #dce4ec !important;
+	opacity: 1 !important;
+}
+
+.sapMBtn.paginationNavButton.sapMBtnDisabled .sapMBtnContent,
+.sapMBtn.paginationPageButton.sapMBtnDisabled .sapMBtnContent {
+	color: #46596c !important;
+}
